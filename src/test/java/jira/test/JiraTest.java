@@ -1,16 +1,19 @@
 package jira.test;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.concurrent.TimeUnit;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class JiraTest {
 
@@ -95,10 +98,6 @@ public class JiraTest {
     @Test   (dependsOnMethods = {"login"})
     public void creatIssue(){
 
-//        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-//        WebDriver driver = new ChromeDriver();
-
-//        driver.get("http://soft.it-hillel.com.ua:8080/secure/Dashboard.jspa");
         //находим кнопку Create и нажимаем
         driver.findElement(By.xpath("//*[@id=\"create_link\"]")).click();
 //        driver.findElement(By.xpath("//div[@id='project-single-select']/span")).click();
@@ -108,94 +107,55 @@ public class JiraTest {
 //        WebElement projectDropDown = driver.findElement(By.xpath("//*[@id=\"project-field\"]"));
 //        new Select(projectDropDown).selectByVisibleText("QAAutomation2 (QAAUT)");
 
-//        Select projectDropDown = new Select(driver.findElement(By.xpath("\"//div[@id='project-single-select']")));
+//        Select projectDropDown = new Select(driver.findElement(By.xpath("//*[@id=\"issuetype-single-select\"]/span")));
 //        projectDropDown.selectByVisibleText("QAAutomation2 (QAAUT)");
 
-        new Select(driver.findElement(By.xpath("//*[@id=\"project-field\"]"))).selectByIndex(2);
-
-//        driver.findElement(By.xpath("(//a[contains(text(),'QAAutomation2 (QAAUT)')])")).click();
-//        driver.findElement(By.xpath("//div[@id='issuetype-single-select']/span")).click();
-//        driver.findElement(By.linkText("Bug")).click();
-//        driver.findElement(By.xpath("//div[@id='issuetype-single-select']/span")).click();
-//        driver.findElement(By.id("summary")).click();
-//        driver.findElement(By.id("summary")).clear();
 //        driver.findElement(By.id("summary")).sendKeys("summary");
-//        driver.findElement(By.id("reporter-field")).clear();
-//        driver.findElement(By.id("reporter-field")).sendKeys("r.polunov_");
-//        driver.findElement(By.id("description")).clear();
-//        driver.findElement(By.id("description")).sendKeys("Desc");
-//        driver.findElement(By.xpath("//div[@id='priority-single-select']/span")).click();
-//        driver.findElement(By.linkText("High")).click();
-//        driver.findElement(By.id("labels-textarea")).click();
-//        driver.findElement(By.id("labels-textarea")).clear();
-//        driver.findElement(By.id("labels-textarea")).sendKeys("lable");
-//        driver.findElement(By.id("environment")).click();
-//        driver.findElement(By.linkText("Cancel")).clear();
-//        driver.findElement(By.linkText("Cancel")).sendKeys("Envi");
-//        driver.findElement(By.id("assignee-field")).click();
-//        driver.findElement(By.id("assignee-field")).clear();
-//        driver.findElement(By.id("assignee-field")).sendKeys("r.polunov");
-//        driver.findElement(By.linkText("Cancel")).click();
 
+        driver.findElement(By.xpath("//*[@id=\"project-field\"]")).click();
+        driver.findElement(By.xpath("//*[@id=\"project-field\"]")).clear();
+        driver.findElement(By.xpath("//*[@id=\"project-field\"]")).sendKeys("QAAUT", Keys.ENTER);
 
+        WebDriverWait wait = new WebDriverWait(driver, 2000);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"issuetype-field\"]")));
 
-//        String project = "";
-//        String IissueType = "";
-//        String summary = "";
-//        String reporterRequired = "";
-//        String description = "";
-//        String priority = "";
-//        String labels = "";
-//        String assignee = "";
+        driver.findElement(By.xpath("//*[@id=\"issuetype-field\"]")).click();
+        driver.findElement(By.xpath("//*[@id=\"issuetype-field\"]")).clear();
+        driver.findElement(By.xpath("//*[@id=\"issuetype-field\"]")).sendKeys("Task",Keys.ENTER);
 
-//        клацаем на кнонопку "Create"
-//        driver.findElement(By.xpath("//*[@id=\"create_link\"]"));
-
-//        WebElement projectDropDown = driver.findElement(By.xpath("//*[@id=\"project-field\"]"));
-//        new Select(projectDropDown).selectByVisibleText("123 (QWE)");
-
-    }
-
-
-    @Test
-    public void testUntitled2() throws Exception {
-        System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
-        driver.get("http://soft.it-hillel.com.ua:8080/secure/Dashboard.jspa");
-        driver.findElement(By.id("create_link")).click();
-//        for (int second = 0;; second++) {
-//            if (second >= 60) fail("timeout");
-//            try { if (isElementPresent(By.id("create-issue-submit"))) break; } catch (Exception e) {}
-//            Thread.sleep(1000);
-//        }
-
-        Thread.sleep(2000);
-
-        driver.findElement(By.xpath("//div[@id='project-single-select']/span")).click();
-        driver.findElement(By.linkText("123 (QWE)")).click();
-        driver.findElement(By.xpath("(//a[contains(text(),'123 (QWE)')])[2]")).click();
-        driver.findElement(By.xpath("//div[@id='issuetype-single-select']/span")).click();
-        driver.findElement(By.linkText("Bug")).click();
-        driver.findElement(By.xpath("//div[@id='issuetype-single-select']/span")).click();
-        driver.findElement(By.id("summary")).click();
-        driver.findElement(By.id("summary")).clear();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("summary")));
         driver.findElement(By.id("summary")).sendKeys("summary");
+
         driver.findElement(By.id("reporter-field")).clear();
-        driver.findElement(By.id("reporter-field")).sendKeys("r.polunov_");
+        driver.findElement(By.id("reporter-field")).sendKeys("r.polunov");
+
         driver.findElement(By.id("description")).clear();
         driver.findElement(By.id("description")).sendKeys("Desc");
-        driver.findElement(By.xpath("//div[@id='priority-single-select']/span")).click();
-        driver.findElement(By.linkText("High")).click();
-        driver.findElement(By.id("labels-textarea")).click();
-        driver.findElement(By.id("labels-textarea")).clear();
-        driver.findElement(By.id("labels-textarea")).sendKeys("lable");
-        driver.findElement(By.id("environment")).click();
-        driver.findElement(By.linkText("Cancel")).clear();
-        driver.findElement(By.linkText("Cancel")).sendKeys("Envi");
-        driver.findElement(By.id("assignee-field")).click();
-        driver.findElement(By.id("assignee-field")).clear();
-        driver.findElement(By.id("assignee-field")).sendKeys("r.polunov");
-        driver.findElement(By.linkText("Cancel")).click();
-        }
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"priority-field\"]")));
+        driver.findElement(By.xpath("//*[@id=\"priority-field\"]")).click();
+        driver.findElement(By.xpath("//*[@id=\"priority-field\"]")).clear();
+        driver.findElement(By.xpath("//*[@id=\"priority-field\"]")).sendKeys("Lowest",Keys.ENTER);
+
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"labels-textarea\"]")));
+        driver.findElement(By.xpath("//*[@id=\"labels-textarea\"]")).click();
+        driver.findElement(By.xpath("//*[@id=\"labels-textarea\"]")).clear();
+        driver.findElement(By.xpath("//*[@id=\"labels-textarea\"]")).sendKeys("JiraUISelenium",Keys.ENTER);
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"assignee-field\"]")));
+        driver.findElement(By.xpath("//*[@id=\"assignee-field\"]")).click();
+        driver.findElement(By.xpath("//*[@id=\"assignee-field\"]")).clear();
+        driver.findElement(By.xpath("//*[@id=\"assignee-field\"]")).sendKeys("r.polunov",Keys.ENTER);
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"create-issue-submit\"]")));
+        driver.findElement(By.xpath("//*[@id=\"create-issue-submit\"]")).click();
+
+        String createIssue = driver.findElement(By.xpath("//*[@id=\"aui-flag-container\"]/div/div/a")).getAttribute("data-issue-key");
+        System.out.println(createIssue);
+
+        assertTrue(createIssue.contains("QAAUT-"));
+
+    }
 
 }
 
