@@ -64,7 +64,7 @@ public class JiraPageObjectTest {
         assertEquals(aTitle, eTitle);
         assertEquals(eProfile, aProfile );
         assertEquals(eCreate, aCreate);
-           driver.close();
+//           driver.close();
 
     }
 

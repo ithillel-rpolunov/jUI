@@ -65,7 +65,6 @@ public class CreateIssue {
 
         field = "priority-field";
         driver.findElement(By.xpath("//*[@id=\"" + field + "\"]")).sendKeys(value, Keys.TAB);
-        //*[@id="priority-field"]
     }
 
 

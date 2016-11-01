@@ -4,7 +4,7 @@
 	<test name="Login" group-by-instances="true" verbose="3">
 
     		<classes>
-		    	<class name="jira.test.JiraTest" />
+		    	<class name="jira.test.JiraPageObjectTest" />
 		    </classes>
 	</test>
 
